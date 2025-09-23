@@ -20,7 +20,7 @@ MODELS = [
     ModelInfo(repo="enoch/llama-65b-hf", adapter="timdettmers/guanaco-65b"),
     ModelInfo(repo="bigscience/bloomz"),
 ]
-DEFAULT_MODEL_NAME = "enoch/llama-65b-hf"
+DEFAULT_MODEL_NAME = "nvidia/nvidia-nemotron-nano-9b-v2"
 
 INITIAL_PEERS = PUBLIC_INITIAL_PEERS
 # Set this to a list of multiaddrs to connect to a private swarm instead of the public one, for example:
