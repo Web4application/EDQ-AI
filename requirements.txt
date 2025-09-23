@@ -1,7 +1,5 @@
-openai
+opencv-python
+numpy
+paho-mqtt
+qiskit
 requests
-PyGithub
-fastapi
-uvicorn
-openai
-PyGithub
