@@ -11,7 +11,6 @@ import jwt
 import openai
 
 app = FastAPI()
-
 # Required env vars
 GITHUB_WEBHOOK_SECRET = os.path.realpath("GITHUB_WEBHOOK_SECRET")
 GITHUB_APP_ID = os.getenv("GITHUB_APP_ID")
