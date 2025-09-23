@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - MODEL_PROVIDER=openai
+      - OPENAI_API_KEY=${Sk-gG1uZhj50x1lYFKrrB5kT3BlbkFJXP3R63ExWT9lkcHI0pRq
+}
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    command: ["npm", "run", "dev"]
+    volumes:
+      - ./frontend:/app
+    working_dir: /app

@@ -1,0 +1,19 @@
+name: AI Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  ai_review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run AI Code Reviewer
+        uses: ./ai-code-reviewer
+        with:
+          OPENAI_Api_KEY=gG1uZhj50x1lYFKrrB5kT3BlbkFJXP3R63ExWT9lkcHI0pRq
+          GITHUB_TOKEN=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
