@@ -58,3 +58,15 @@ See scaffold for instructions.
 └───────────────┘  │ Scenarios     │
                    │ replay_past_events() │
                    └───────────────┘
+```
+ ￼
+
+The page shows a scaffold / architecture sketch. Key components:
+	•	Local camera / remote devices (cameras, drones, satellites, IoT sensors) capturing frames & sensor data  ￼
+	•	Preprocessing in low light / brightness adjustment & activating flash / IR  ￼
+	•	Detection modules: object detection (YOLOv8 / Detectron2), anomaly detection (autoencoder / GAN), resource detection (UNet / DeepLabV3), disaster detection (CNN / LSTM)  ￼
+	•	Quantum simulation module: probabilistic branching, “quantum_future_decision()”  ￼
+	•	Teleportation / distributed AI (simulate_teleport) – share decisions across devices  ￼
+	•	Aura Orchestrator: receives events, triggers IoT actions, stores history  ￼
+	•	Integration via MQTT / IoT actions, time-travel / replay of past events, alternative scenarios  ￼
+
