@@ -77,7 +77,6 @@ The page shows a scaffold / architecture sketch. Key components:
 	
 	•	Integration via MQTT / IoT actions, time-travel / replay of past events, alternative scenarios  ￼
 
-Perfect! Let’s take EDQ‑AI to next-level GitHub presentation mode — full of visuals, badges, and diagrams to make it feel like a quantum AI lab homepage. Here’s a draft for your README.md with all the bells and whistles:
 
 ⸻
 
