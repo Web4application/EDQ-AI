@@ -3,3 +3,8 @@ numpy
 paho-mqtt
 qiskit
 requests
+tvm
+fastapi
+uvicorn
+numpy
+pydantic
