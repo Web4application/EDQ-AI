@@ -635,3 +635,22 @@ B = te.placeholder((128, 128), "float32", name="B")
 k = te.reduce_axis((0, 128), "k")
 Y = te.compute((128, 128), lambda i, j: te.sum(A[i, k] * B[k, j], axis=k), name="Y")
 C = te.compute((128, 128), lambda i, j: te.max(Y[i, j], 0), name="C")
+
+ /cfml
+  Application.cfc        ← handles request initialization, routing
+  /api
+    routes.cfm / endpoints
+    detection_handler.cfm
+    anomaly_handler.cfm
+  /components
+    SensorGateway.cfc     ← interface for sensors (camera, IoT)
+    DetectorBridge.cfc    ← calls external inference module(s)
+    Orchestrator.cfc      ← the “aura” brain
+    Teleportation.cfc     ← sync module across devices
+    QuantumSimulator.cfc  ← simulation / branching
+    EventHistory.cfc      ← time-travel / replay logic
+  /utils
+    HttpClient.cfc
+    JSONUtils.cfc
+    Config.cfc
+    Logger.cfc
