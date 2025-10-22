@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDQ-AI | Exploration, Discovery & Quantum Intelligence</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
+    body {
+      background: radial-gradient(circle at 20% 20%, #0a0a0f, #000);
+      color: #f2f2f2;
+      overflow-x: hidden;
+    }
+    header {
+      position: fixed; top: 0; width: 100%;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 50px; z-index: 10;
+      background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px);
+    }
+    header h1 { font-size: 1.5em; color: #00d9ff; letter-spacing: 1px; }
+    nav a {
+      margin-left: 25px; color: #f2f2f2; text-decoration: none;
+      transition: 0.3s;
+    }
+    nav a:hover { color: #00d9ff; }
+
+    section { padding: 100px 50px; min-height: 100vh; }
+
+    .hero {
+      background: linear-gradient(135deg, #001f3f, #000);
+      display: flex; flex-direction: column; justify-content: center;
+      align-items: center; text-align: center;
+    }
+    .hero h2 {
+      font-size: 3em; color: #00d9ff;
+      text-shadow: 0 0 15px #00d9ff;
+    }
+    .hero p {
+      margin-top: 20px; max-width: 600px; font-size: 1.2em;
+      color: #ccc;
+    }
+    .hero button {
+      margin-top: 30px; background: #00d9ff; color: #000; border: none;
+      padding: 15px 30px; border-radius: 30px; font-size: 1em; cursor: pointer;
+      transition: 0.3s;
+    }
+    .hero button:hover { background: #0088cc; color: #fff; }
+
+    .features {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;
+    }
+    .feature {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px; border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: 0.3s;
+    }
+    .feature:hover {
+      transform: translateY(-5px);
+      border-color: #00d9ff;
+      box-shadow: 0 0 20px #00d9ff33;
+    }
+    .feature h3 { color: #00d9ff; margin-bottom: 10px; }
+
+    .demo-console {
+      background: #050505; border: 1px solid #00d9ff55;
+      border-radius: 10px; padding: 20px;
+      font-family: monospace; color: #00ff88;
+      height: 300px; overflow-y: auto;
+    }
+    .input-area {
+      display: flex; margin-top: 15px;
+    }
+    .input-area input {
+      flex: 1; padding: 10px; border: none;
+      background: #111; color: #00d9ff;
+    }
+    .input-area button {
+      background: #00d9ff; color: #000; border: none; padding: 10px 20px;
+      cursor: pointer; transition: 0.3s;
+    }
+    .input-area button:hover { background: #0088cc; }
+
+    footer {
+      text-align: center; padding: 30px;
+      background: rgba(0,0,0,0.4); backdrop-filter: blur(10px);
+      color: #777;
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 10px #00d9ff; }
+      50% { text-shadow: 0 0 25px #00d9ff, 0 0 50px #00d9ff; }
+      100% { text-shadow: 0 0 10px #00d9ff; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EDQ-AI</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#demo">Demo</a>
+      <a href="#connect">Connect</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2 style="animation: glow 3s infinite;">Exploration • Discovery • Quantum AI</h2>
+    <p>Unifying Artificial Intelligence, Quantum Computing, and Data Exploration into a single adaptive intelligence network.</p>
+    <button onclick="document.querySelector('#demo').scrollIntoView({behavior:'smooth'})">Try Demo</button>
+  </section>
+
+  <section id="about">
+    <h2>About EDQ-AI</h2>
+    <p style="margin-top:20px;max-width:700px;">
+      EDQ-AI (Exploration, Discovery & Quantum AI) is an experimental platform designed to fuse deep learning,
+      distributed intelligence, and quantum computation. It aims to process real-world signals — from IoT sensors,
+      satellites, or human interfaces — and translate them into meaningful insights that expand our understanding
+      of the universe.
+    </p>
+  </section>
+
+  <section id="features">
+    <h2>Key Features</h2>
+    <div class="features" style="margin-top:40px;">
+      <div class="feature">
+        <h3>⚡ Quantum-Inspired Computation</h3>
+        <p>Hybrid classical–quantum algorithms simulate particle behavior, enabling accelerated decision-making.</p>
+      </div>
+      <div class="feature">
+        <h3>🌍 Multi-Sensor Integration</h3>
+        <p>Connects to IoT devices, drones, satellites, and biosensors to gather and analyze data in real-time.</p>
+      </div>
+      <div class="feature">
+        <h3>🤖 Adaptive AI Core</h3>
+        <p>A self-optimizing AI engine that learns continuously from each environment it inhabits.</p>
+      </div>
+      <div class="feature">
+        <h3>🛰 Blockchain & Web4 Support</h3>
+        <p>Includes modular interfaces for immutable data logs, decentralized computation, and federated AI training.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo">
+    <h2>Interactive Demo Console</h2>
+    <p style="margin-top:15px;">Type a command to interact with EDQ-AI’s mock core:</p>
+    <div class="demo-console" id="console"></div>
+    <div class="input-area">
+      <input id="userInput" type="text" placeholder="e.g. run quantum_scan" />
+      <button onclick="sendCommand()">Run</button>
+    </div>
+  </section>
+
+  <section id="connect">
+    <h2>Connect</h2>
+    <p style="margin-top:15px;">Project repo: <a href="https://github.com/Web4application/EDQ-AI" target="_blank" style="color:#00d9ff;">github.com/Web4application/EDQ-AI</a></p>
+  </section>
+
+  <footer>
+    <p>© 2025 EDQ-AI — Built by Seriki Yakub (KUBU LEE)</p>
+  </footer>
+
+  <script>
+    const consoleBox = document.getElementById("console");
+    function appendToConsole(text, type="system") {
+      const line = document.createElement("div");
+      line.textContent = (type==="user" ? "> " : "") + text;
+      line.style.color = type==="user" ? "#00d9ff" : "#00ff88";
+      consoleBox.appendChild(line);
+      consoleBox.scrollTop = consoleBox.scrollHeight;
+    }
+
+    function sendCommand() {
+      const input = document.getElementById("userInput");
+      const command = input.value.trim();
+      if (!command) return;
+      appendToConsole(command, "user");
+      setTimeout(() => {
+        let response;
+        switch(command.toLowerCase()) {
+          case "run quantum_scan":
+            response = "🌀 Quantum scan initialized... particles stable.";
+            break;
+          case "analyze sensors":
+            response = "📡 Sensors active — reading environmental patterns.";
+            break;
+          case "self_optimize":
+            response = "⚙️ Core optimization cycle complete. Efficiency +7%.";
+            break;
+          default:
+            response = "❓ Unknown command. Try: run quantum_scan, analyze sensors, self_optimize.";
+        }
+        appendToConsole(response);
+      }, 500);
+      input.value = "";
+    }
+  </script>
+</body>
+</html>
