@@ -158,6 +158,28 @@
     <p style="margin-top:15px;">Project repo: <a href="https://github.com/Web4application/EDQ-AI" target="_blank" style="color:#00d9ff;">github.com/Web4application/EDQ-AI</a></p>
   </section>
 
+  <script>
+  async function sendCommand() {
+  const input = document.getElementById("userInput");
+  const command = input.value.trim();
+  if (!command) return;
+
+  appendToConsole(command, "user");
+
+  try {
+    const res = await fetch("https://api.kubu-hai.com/api/command", {  // replace with your FastAPI URL
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ command })
+    });
+    const data = await res.json();
+    appendToConsole(data.response);
+  } catch (err) {
+    appendToConsole("⚠️ Connection error: " + err.message);
+  }
+
+  input.value = "";
+}
   <footer>
     <p>© 2025 EDQ-AI — Built by Seriki Yakub (KUBU LEE)</p>
   </footer>
