@@ -1,0 +1,17 @@
+cfml/
+  ├── Application.cfc
+  ├── index.cfm
+  ├── components/
+  │    ├── detectors/
+  │    ├── orchestrator.cfc
+  │    ├── quantum_sim.cfc
+  │    ├── aura.cfc
+  │    └── mqtt_handler.cfc
+  ├── api/
+  │    ├── routes.cfm
+  │    ├── ai_handler.cfm
+  │    └── data_gateway.cfm
+  ├── utils/
+  │    ├── db.cfc
+  │    ├── json.cfc
+  │    └── env.cfc
