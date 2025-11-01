@@ -1,0 +1,131 @@
+#!/usr/bin/env bash
+# .bashmainrpc — MDSE-powered JSON-RPC Bash daemon
+set -euo pipefail
+
+ENV_FILE=".env"
+MODEL_FILE="model.json"
+TMP_LOG="/tmp/bashrpc.log"
+
+# Load environment
+if [ -f "$ENV_FILE" ]; then
+  export $(grep -v '^#' "$ENV_FILE" | xargs)
+else
+  echo "❌ Missing .env file"
+  exit 1
+fi
+
+# Load model
+if [ ! -f "$MODEL_FILE" ]; then
+  echo "❌ Missing model file"
+  exit 1
+fi
+MODEL_JSON=$(cat "$MODEL_FILE")
+
+# ========================
+# AI CALL
+# ========================
+ask_ai() {
+  local prompt="$1"
+  local provider="${AI_PROVIDER:-web4}"
+  local endpoint="${AI_ENDPOINT:-https://api.openai.com/v1/chat/completions}"
+  local model="${MODEL:-gpt-5-mini}"
+
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] [AI] $prompt" >> "$TMP_LOG"
+
+  if [[ "$provider" == "web4" ]]; then
+    curl -s "$https://models.github.ai/inference"" \
+      -H "Authorization: Bearer $GPT_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d "{
+        \"model\": \"$model\",
+        \"messages\": [{\"role\":\"user\",\"content\":\"$prompt\"}]
+      }" | jq -r '.choices[0].message.content'
+  else
+    curl -s "$endpoint" \
+      -H "Content-Type: application/json" \
+      -d "{\"prompt\":\"$prompt\"}" | jq -r '.response'
+  fi
+}
+
+# ========================
+# SYSTEM INFO
+# ========================
+sys_info() {
+  echo "{\"hostname\":\"$(hostname)\",\"uptime\":\"$(uptime -p)\",\"load\":\"$(uptime | awk -F'load average:' '{print $2}')\"}"
+}
+
+# ========================
+# RPC HANDLER
+# ========================
+handle_rpc() {
+  local service="$1"
+  local method="$2"
+  local data="$3"
+
+  # Validate against model.json
+  if ! jq -e ".services.\"$service\".methods.\"$method\"" <<< "$MODEL_JSON" >/dev/null; then
+    echo "{\"error\":\"Unknown method $service.$method\"}"
+    return
+  fi
+
+  # Execute
+  case "$service.$method" in
+    ai.ask)
+      ask_ai "$data"
+      ;;
+    ai.summarize)
+      ask_ai "Summarize: $data"
+      ;;
+    sys.info)
+      sys_info
+      ;;
+    sys.uptime)
+      uptime -p
+      ;;
+    *)
+      echo "{\"error\":\"Method $service.$method not implemented\"}"
+      ;;
+  esac
+}
+
+# ========================
+# HTTP RESPONSE
+# ========================
+http_response() {
+  local status="$1"
+  local body="$2"
+  echo -e "HTTP/1.1 $status\r"
+  echo -e "Content-Type: application/json\r"
+  echo -e "Access-Control-Allow-Origin: *\r"
+  echo -e "Access-Control-Allow-Headers: Content-Type\r"
+  echo -e "Access-Control-Allow-Methods: POST, GET, OPTIONS\r\n"
+  echo "$body"
+}
+
+# ========================
+# SERVER LOOP
+# ========================
+run_server() {
+  echo "🚀 BashRPC MDSE Daemon started on $HOST:$PORT"
+  while true; do
+    ncat -kl "$HOST" "$PORT" -c '
+      read request
+      body=$(cat)
+      method=$(echo "$body" | jq -r ".service")
+      rpc=$(echo "$body" | jq -r ".method")
+      data=$(echo "$body" | jq -r ".data")
+      resp=$(./.bashmainrpc --call "$method" "$rpc" "$data")
+      ./bashrespond "$resp"
+    '
+  done
+}
+
+# ========================
+# LOCAL CALL
+# ========================
+if [[ "${1:-}" == "--call" ]]; then
+  handle_rpc "$2" "$3" "$4"
+  exit 0
+fi
+
+run_server
